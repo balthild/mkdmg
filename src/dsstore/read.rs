@@ -257,10 +257,7 @@ fn decode_record(bytes: &[u8], position: &mut usize) -> Result<Record> {
 
 fn decode_utf16(raw: &[u8]) -> Option<String> {
     let (pairs, _) = raw.as_chunks::<2>();
-    let units: Vec<u16> = pairs
-        .iter()
-        .map(|pair| u16::from_be_bytes(*pair))
-        .collect();
+    let units: Vec<u16> = pairs.iter().map(|pair| u16::from_be_bytes(*pair)).collect();
 
     String::from_utf16(&units).ok()
 }
