@@ -78,6 +78,7 @@
             rustc
             rustfmt
             clippy
+            cargo-release
             config.packages.__fetch_release_hash
           ];
         };

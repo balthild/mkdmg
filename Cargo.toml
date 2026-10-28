@@ -26,3 +26,7 @@ xattr = "1.7.0"
 version = "4.6.7"
 features = ["derive", "wrap_help"]
 optional = true
+
+[package.metadata.release]
+pre-release-commit-message = "chore: release {{crate_name}} version {{version}}"
+tag-message = "chore: release {{crate_name}} version {{version}}"
