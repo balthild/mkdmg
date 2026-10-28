@@ -7,9 +7,22 @@ documentation = "https://docs.rs/mkdmg"
 repository = "https://github.com/balthild/mkdmg"
 edition = "2024"
 
+[features]
+default = []
+cli = ["dep:clap"]
+
+[[bin]]
+name = "mkdmg"
+path = "src/main.rs"
+required-features = ["cli"]
+
 [dependencies]
-clap = { version = "4.6.7", features = ["derive"] }
 plist = { version = "1.10.3", default-features = false }
 tempfile = "3.27.0"
 thiserror = "2.0.21"
 xattr = "1.7.0"
+
+[dependencies.clap]
+version = "4.6.7"
+features = ["derive", "wrap_help"]
+optional = true
