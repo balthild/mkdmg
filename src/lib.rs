@@ -4,3 +4,4 @@
 pub mod dsstore;
 
 pub mod alias;
+pub mod layout;
