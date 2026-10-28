@@ -4,7 +4,7 @@ use thiserror::Error;
 
 use crate::{
     alias,
-    dsstore::{self, Field, Store, Value},
+    dsstore::{Field, Store, Value},
 };
 
 /// Folder holding the window background image, relative to the volume root.
@@ -22,12 +22,6 @@ pub const BACKGROUND_TYPE_COLOUR: i64 = 1;
 pub enum Error {
     #[error(transparent)]
     Alias(#[from] alias::Error),
-
-    #[error(transparent)]
-    DsStore(#[from] dsstore::Error),
-
-    #[error("could not encode window settings: {0}")]
-    PropertyList(#[from] plist::Error),
 
     #[error("window size {width}x{height} is not positive")]
     EmptyWindow { width: f64, height: f64 },

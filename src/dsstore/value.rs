@@ -13,10 +13,6 @@ impl Field {
     pub const ICVP: Self = Self(*b"icvp");
     /// Default Finder view style (a property list).
     pub const ICVL: Self = Self(*b"icvl");
-    /// Legacy icon view background (a 12-byte blob).
-    pub const BKGD: Self = Self(*b"Bkgd");
-    /// Directory modification time.
-    pub const MODD: Self = Self(*b"moDD");
     /// Record of the Finder's own bookkeeping version.
     pub const VSRN: Self = Self(*b"vSrn");
 
