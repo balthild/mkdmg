@@ -1,6 +1,7 @@
 use std::{
     path::{Path, PathBuf},
     process::ExitCode,
+    str::FromStr,
 };
 
 use clap::{Parser, ValueEnum};
@@ -35,11 +36,11 @@ struct Args {
 
     /// Window origin as X,Y, with Y counted up from the bottom of the screen.
     #[arg(long, value_name = "X,Y", default_value = "100,100")]
-    window_position: Pair,
+    window_position: PairArg,
 
     /// Window size as W,H.
     #[arg(long, value_name = "W,H", default_value = "640,480")]
-    window_size: Pair,
+    window_size: PairArg,
 
     /// Icon size in points.
     #[arg(long, value_name = "POINTS", default_value_t = 128)]
@@ -62,8 +63,8 @@ struct Args {
     symlink: Vec<String>,
 
     /// Filesystem to format the image with.
-    #[arg(long, value_enum, default_value_t = Filesystem::HfsPlus)]
-    fs: Filesystem,
+    #[arg(long, value_enum, default_value_t = FsArg::HfsPlus)]
+    fs: FsArg,
 
     /// Never mount the image; the volume icon is then unavailable.
     #[arg(long)]
@@ -71,7 +72,7 @@ struct Args {
 }
 
 #[derive(Clone, Copy, ValueEnum)]
-enum Filesystem {
+enum FsArg {
     /// HFS+, readable by older systems and more third-party tools.
     #[value(name = "hfs+")]
     HfsPlus,
@@ -79,23 +80,23 @@ enum Filesystem {
     Apfs,
 }
 
-impl From<Filesystem> for FileSystem {
-    fn from(value: Filesystem) -> Self {
+impl From<FsArg> for FileSystem {
+    fn from(value: FsArg) -> Self {
         match value {
-            Filesystem::HfsPlus => Self::HfsPlus,
-            Filesystem::Apfs => Self::Apfs,
+            FsArg::HfsPlus => Self::HfsPlus,
+            FsArg::Apfs => Self::Apfs,
         }
     }
 }
 
 /// Two numbers written as `a,b`.
 #[derive(Clone, Copy)]
-struct Pair {
+struct PairArg {
     first: f64,
     second: f64,
 }
 
-impl std::str::FromStr for Pair {
+impl FromStr for PairArg {
     type Err = &'static str;
 
     fn from_str(text: &str) -> Result<Self, Self::Err> {
