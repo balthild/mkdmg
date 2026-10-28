@@ -41,16 +41,16 @@ struct Args {
     #[arg(long, value_name = "W,H", default_value = "640,480")]
     window_size: Pair,
 
-    /// Icon size, up to 128.
+    /// Icon size in points.
     #[arg(long, value_name = "POINTS", default_value_t = 128)]
     icon_size: u16,
 
-    /// Label text size, between 10 and 16.
+    /// Label text size in points.
     #[arg(long, value_name = "POINTS", default_value_t = 16)]
     text_size: u16,
 
     /// Position an entry's icon, given as NAME X Y.
-    #[arg(long, value_name = "NAME", num_args = 3, action = clap::ArgAction::Append)]
+    #[arg(long, value_names = ["NAME", "X", "Y"], num_args = 3, action = clap::ArgAction::Append)]
     icon: Vec<String>,
 
     /// Add a shortcut to the Applications folder at X Y.
