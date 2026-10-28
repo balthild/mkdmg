@@ -41,7 +41,7 @@ jobs:
 
       - name: Build Configurations
         run: |
-          BINARY_NAME="luajit-ripper"
+          BINARY_NAME="mkdmg"
           BINARY_EXT="${{ runner.os == 'Windows' && '.exe' || '' }}"
 
           OUTPUT_DIR="./target/${{ matrix.target }}/release"
