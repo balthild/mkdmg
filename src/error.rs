@@ -26,9 +26,6 @@ pub enum Error {
         details: String,
     },
 
-    #[error("{command} produced unexpected output{details}")]
-    ToolOutput { command: String, details: String },
-
     #[error("{value:?} is not a valid {expected}")]
     InvalidArgument {
         value: String,
