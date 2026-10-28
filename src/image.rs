@@ -10,6 +10,9 @@ use crate::{
 
 const HDIUTIL: &str = "/usr/bin/hdiutil";
 
+/// How many times a busy volume is retried before the detach is forced.
+const DETACH_ATTEMPTS: usize = 4;
+
 /// Create a writable image whose contents come from `source`.
 pub(crate) fn create(
     source: &Path,
@@ -60,12 +63,12 @@ pub(crate) fn convert(source: &Path, target: &Path) -> Result<()> {
     .map(|_| ())
 }
 
-/// Attach `image` at `mountpoint` and report the device it became.
+/// Attach `image` at `mountpoint`.
 ///
 /// `-nobrowse` keeps it out of Finder's sidebar, which matters because the
 /// image is finished before anyone should look at it.
-pub(crate) fn attach(image: &Path, mountpoint: &Path) -> Result<String> {
-    let output = run(
+pub(crate) fn attach(image: &Path, mountpoint: &Path) -> Result<()> {
+    run(
         HDIUTIL,
         vec![
             arg("attach"),
@@ -77,20 +80,8 @@ pub(crate) fn attach(image: &Path, mountpoint: &Path) -> Result<String> {
             arg("-mountpoint"),
             arg(mountpoint),
         ],
-    )?;
-
-    output
-        .lines()
-        .find_map(|line| {
-            let mut fields = line.split_whitespace();
-            let device = fields.next()?;
-
-            device.starts_with("/dev/").then(|| device.to_owned())
-        })
-        .ok_or_else(|| crate::Error::ToolOutput {
-            command: format!("hdiutil attach {}", image.display()),
-            details: format!(": no device in output {output:?}"),
-        })
+    )
+    .map(|_| ())
 }
 
 /// Detach by mount point, forcing it on the last attempt.
@@ -112,6 +103,3 @@ pub(crate) fn detach(mountpoint: &Path) -> Result<()> {
         .map(|_| ())
         .map_err(|_| last.expect("at least one attempt failed"))
 }
-
-/// How many times a busy volume is retried before forcing the detach.
-const DETACH_ATTEMPTS: usize = 4;
