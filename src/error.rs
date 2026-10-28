@@ -26,12 +26,6 @@ pub enum Error {
         details: String,
     },
 
-    #[error("{value:?} is not a valid {expected}")]
-    InvalidArgument {
-        value: String,
-        expected: &'static str,
-    },
-
     #[error(transparent)]
     DsStore(#[from] crate::dsstore::Error),
 

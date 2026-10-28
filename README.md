@@ -12,8 +12,8 @@ mkdmg MyApp.app \
     --output MyApp-1.0.dmg \
     --background art/background.tiff \
     --window-size 660,432 \
-    --icon MyApp.app 180 200 \
-    --app-drop-link 480 200
+    --icon MyApp.app:180,200 \
+    --app-drop-link 480,200
 ```
 
 ## How the appearance is produced
