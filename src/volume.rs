@@ -46,6 +46,7 @@ impl Mounted {
         let scratch = TempDir::new().map_err(|error| Error::io(std::env::temp_dir(), error))?;
 
         image::attach(image, scratch.path())?;
+
         Ok(Self {
             mountpoint: scratch.path().to_owned(),
             attached: true,
