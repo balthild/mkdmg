@@ -1,6 +1,6 @@
 [package]
 name = "mkdmg"
-version = "0.1.0"
+version = "0.1.1"
 description = "Create Apple Disk Image without relying on Finder GUI"
 license = "GPL-3.0-only"
 documentation = "https://docs.rs/mkdmg"
