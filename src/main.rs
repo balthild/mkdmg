@@ -35,7 +35,7 @@ struct Args {
     volume_icon: Option<PathBuf>,
 
     /// Window origin as X,Y, with Y counted up from the bottom of the screen.
-    #[arg(long, value_name = "X,Y", default_value = "100,100")]
+    #[arg(long, value_name = "X,Y", default_value = "400,400")]
     window_position: PairArg<f64>,
 
     /// Window size as W,H.
