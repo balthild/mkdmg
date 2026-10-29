@@ -94,9 +94,12 @@
             rustc
             rustfmt
             clippy
+            rust-analyzer
             cargo-release
             config.packages.__mkdmg_update_release
           ];
+
+          RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
         };
       };
     };
